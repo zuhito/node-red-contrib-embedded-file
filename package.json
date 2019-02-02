@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-embedded-file",
+  "version": "0.0.1",
+  "description": "Node-RED node to store file data to flow",
+  "main": "node.js",
+  "node-red": {
+    "nodes": {
+      "embedded-file": "node.js"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuhito/node-red-contrib-embedded-file.git"
+  },
+  "keywords": [
+    "node-red",
+    "file"
+  ],
+  "author": "zuhito",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zuhito/node-red-contrib-embedded-file/issues"
+  },
+  "homepage": "https://github.com/zuhito/node-red-contrib-embedded-file#readme"
+}

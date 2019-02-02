@@ -1,0 +1,72 @@
+<script type="text/x-red" data-template-name="embedded-file">
+    <div class="form-row">
+        <label><i class="fa fa-file-text-o"></i> File</label>
+        <span>
+            <label class="editor-button" for="node-input-file"><i class="fa fa-upload"></i> Upload</label>
+            <input class="hide" type="file" id="node-input-file">
+            <span id="name"></span>
+            <span id="node-input-filename" style="width: calc(100% - 280px); display: inline-block;"> </span>
+            <button class="editor-button editor-button-small" id="node-red-input-filename-clear" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+        </span>
+        <input type="hidden" id="node-input-filedata">
+        <!-- <input class="hide node-input-path" type="text" id="node-input-file"> -->
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-format"><i class="fa fa-sign-out"></i> Output</span></label>
+        <select id="node-input-format">
+            <option value="utf8">String</option>
+            <option value="">Buffer</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="embedded-file">
+    <p>Node-RED node to store file data to flow</p>
+    <p>Once uploading file via node property UI, the file node behaves as general file node. Because file data is stored to the flow data, you can share the flow which contains both flow and file data.</p>
+    <p>Note: The embedded file size should be less than 100KB because the file node needs CPU performance.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('embedded-file', {
+        category: 'storage-input',
+        defaults: {
+            name: { value: "" },
+            filename: { value: "" },
+            filedata: { value: "" },
+            format: { value: "utf8" }
+        },
+        inputs: 1,
+        outputs: 1,
+        color: "BurlyWood",
+        icon: "file-in.png",
+        label: function () {
+            return this.name || "embedded-file";
+        },
+        oneditprepare: function () {
+            $("#node-input-file").change(function () {
+                var filename = this.files[0].name;
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    if (event.target.result.length > 100 * 1024) {
+                        alert('The embedded file size shold be less than 100KB.');
+                    } else {
+                        $("#node-input-filename").text(filename);
+                        $("#node-input-filedata").val(event.target.result);
+                    }
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $("#node-red-input-filename-clear").click(function() {
+                $("#node-input-filename").text("");
+                $("#node-input-filedata").val("");
+            });
+        }
+    });
+</script>
