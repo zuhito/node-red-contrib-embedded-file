@@ -53,14 +53,14 @@
                 var filename = this.files[0].name;
                 var reader = new FileReader();
                 reader.onload = function (event) {
-                    if (event.target.result.length > 100 * 1024) {
-                        alert('The embedded file size shold be less than 100KB.');
-                    } else {
-                        $("#node-input-filename").text(filename);
-                        $("#node-input-filedata").val(event.target.result);
-                    }
+                    $("#node-input-filename").text(filename);
+                    $("#node-input-filedata").val(event.target.result);
                 }
-                reader.readAsDataURL(this.files[0]);
+                if (this.files[0].size > 100 * 1024) {
+                    alert('The embedded file size shold be less than 100KB.');
+                } else {
+                    reader.readAsDataURL(this.files[0]);
+                }
             });
 
             $("#node-red-input-filename-clear").click(function() {

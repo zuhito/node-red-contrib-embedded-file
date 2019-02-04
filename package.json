@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-embedded-file",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node-RED node to store file data to flow",
   "main": "node.js",
   "node-red": {
